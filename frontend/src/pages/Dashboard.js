@@ -80,7 +80,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(
-        'http://localhost:5000/api/user/get-expense-limit',
+        'https://expensetracker-backend-kfz1.onrender.com/api/user/get-expense-limit',
         { headers: { 'x-auth-token': token } }
       );
       setExpenseLimit(response.data.limit);
@@ -94,7 +94,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        'http://localhost:5000/api/user/set-expense-limit',
+        'https://expensetracker-backend-kfz1.onrender.com/api/user/set-expense-limit',
         { limit: newLimit },
         { headers: { 'x-auth-token': token } }
       );
@@ -113,14 +113,14 @@ const Dashboard = () => {
   
         // Fetch current month's expenses
         const expensesRes = await axios.get(
-          `http://localhost:5000/api/expenses/monthly?month=${selectedMonth}&year=${selectedYear}`, 
+          `https://expensetracker-backend-kfz1.onrender.com/api/expenses/monthly?month=${selectedMonth}&year=${selectedYear}`, 
           { headers: { 'x-auth-token': token } }
         );
         setExpenses(expensesRes.data);
   
         // Fetch current month's incomes
         const incomesRes = await axios.get(
-          `http://localhost:5000/api/incomes/monthly?month=${selectedMonth}&year=${selectedYear}`,
+          `https://expensetracker-backend-kfz1.onrender.com/api/incomes/monthly?month=${selectedMonth}&year=${selectedYear}`,
           { headers: { 'x-auth-token': token } }
         );
         setIncomes(incomesRes.data);
@@ -135,7 +135,7 @@ const Dashboard = () => {
   
         // Fetch previous month's incomes
         const prevIncomesRes = await axios.get(
-          `http://localhost:5000/api/incomes/monthly?month=${prevMonth}&year=${prevYear}`,
+          `https://expensetracker-backend-kfz1.onrender.com/api/incomes/monthly?month=${prevMonth}&year=${prevYear}`,
           { headers: { 'x-auth-token': token } }
         );
   
@@ -174,7 +174,7 @@ const Dashboard = () => {
       const token = localStorage.getItem('token');
       
       const response = await axios.get(
-        `http://localhost:5000/api/expenses/optimize?month=${selectedMonth}&year=${selectedYear}&budget=${budget}&method=${method}`,
+        `https://expensetracker-backend-kfz1.onrender.com/api/expenses/optimize?month=${selectedMonth}&year=${selectedYear}&budget=${budget}&method=${method}`,
         { headers: { 'x-auth-token': token } }
       );
       
