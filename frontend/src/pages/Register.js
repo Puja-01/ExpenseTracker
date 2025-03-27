@@ -14,7 +14,7 @@ const Register = () => {
     e.preventDefault();
     setErrorMessage('');
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/register', { name, email, password });
+      const res = await axios.post('https://expensetracker-backend-kfz1.onrender.com/api/auth/register', { name, email, password });
       localStorage.setItem('token', res.data.token);
       navigate('/dashboard');
     } catch (err) {
