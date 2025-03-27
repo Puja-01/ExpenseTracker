@@ -111,7 +111,7 @@ const Login = () => {
                     letterSpacing: '-0.5px',
                   }}
                 >
-                  Welcome Back
+                  Login
                 </Typography>
                 
                 {errorMessage && (
