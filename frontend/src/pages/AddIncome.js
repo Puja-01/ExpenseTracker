@@ -35,7 +35,7 @@ const AddIncome = () => {
         return;
       }
 
-      const res = await axios.get('http://localhost:5000/api/incomes/monthly', {
+      const res = await axios.get('https://expensetracker-backend-kfz1.onrender.com/api/incomes/monthly', {
         headers: { 'x-auth-token': token },
       });
 
@@ -75,7 +75,7 @@ const AddIncome = () => {
 
       if (editingIncome) {
         const res = await axios.put(
-          `http://localhost:5000/api/incomes/${editingIncome._id}`,
+          `https://expensetracker-backend-kfz1.onrender.com/api/incomes/${editingIncome._id}`,
           payload,
           { headers: { 'x-auth-token': token } }
         );
@@ -85,7 +85,7 @@ const AddIncome = () => {
         setEditingIncome(null);
       } else {
         const res = await axios.post(
-          'http://localhost:5000/api/incomes',
+          'https://expensetracker-backend-kfz1.onrender.com/api/incomes',
           payload,
           { headers: { 'x-auth-token': token } }
         );
@@ -114,7 +114,7 @@ const AddIncome = () => {
         return;
       }
 
-      await axios.delete(`http://localhost:5000/api/incomes/${id}`, {
+      await axios.delete(`https://expensetracker-backend-kfz1.onrender.com/api/incomes/${id}`, {
         headers: { 'x-auth-token': token },
       });
 
