@@ -5,15 +5,15 @@ import { TextField, Button, Container, Typography, Box, Paper, Alert, Fade, Grow
 import { keyframes } from '@emotion/react';
 
 // Animation keyframes
-const subtlePulse = keyframes`
-  0% { opacity: 0.95; }
-  50% { opacity: 1; }
-  100% { opacity: 0.95; }
+const gradientFlow = keyframes`
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 `;
 
 const floatAnimation = keyframes`
   0% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-10px); }
   100% { transform: translateY(0px); }
 `;
 
@@ -36,7 +36,9 @@ const Register = () => {
       navigate('/dashboard');
     } catch (err) {
       console.error(err);
-      setErrorMessage(err.response?.data?.message || 'Registration failed. Please try again.');
+      setErrorMessage(err.response?.data?.message === 'User already exists' 
+        ? 'User already exists' 
+        : 'Registration failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -45,36 +47,42 @@ const Register = () => {
   return (
     <Box sx={{
       minHeight: "100vh",
-      background: "linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%)",
+      background: "linear-gradient(135deg, #ffffff 0%, #e6f2ff 25%, #1e90ff 50%, #000000 100%)",
+      backgroundSize: "400% 400%",
+      animation: `${gradientFlow} 15s ease infinite`,
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       position: 'relative',
       overflow: 'hidden',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        background: 'rgba(0,0,0,0.2)',
+        backdropFilter: 'blur(2px)',
+      }
     }}>
-      {/* Decorative elements */}
+      {/* Floating animated elements */}
       <Box sx={{
         position: 'absolute',
-        width: '60vw',
-        height: '60vw',
-        maxWidth: 600,
-        maxHeight: 600,
+        width: 300,
+        height: 300,
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(100,115,255,0.08) 0%, rgba(0,0,0,0) 70%)',
-        top: '-20%',
-        right: '-10%',
+        background: 'radial-gradient(circle, rgba(30,144,255,0.15) 0%, rgba(255,255,255,0) 70%)',
+        top: '20%',
+        left: '10%',
         animation: `${floatAnimation} 8s ease-in-out infinite`,
       }} />
       <Box sx={{
         position: 'absolute',
-        width: '40vw',
-        height: '40vw',
-        maxWidth: 400,
-        maxHeight: 400,
+        width: 200,
+        height: 200,
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(255,100,100,0.06) 0%, rgba(0,0,0,0) 70%)',
-        bottom: '-15%',
-        left: '-10%',
+        background: 'radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(0,0,0,0) 70%)',
+        bottom: '15%',
+        right: '10%',
         animation: `${floatAnimation} 10s ease-in-out infinite 2s`,
       }} />
 
@@ -82,21 +90,21 @@ const Register = () => {
         <Grow in={true} timeout={800}>
           <Paper sx={{
             p: 4,
-            bgcolor: "rgba(255, 255, 255, 0.96)",
+            bgcolor: "rgba(255, 255, 255, 0.92)",
             borderRadius: 3,
-            boxShadow: '0 10px 30px rgba(50, 50, 93, 0.1)',
-            border: '1px solid rgba(0, 0, 0, 0.02)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+            backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             position: 'relative',
             overflow: 'hidden',
-            animation: `${subtlePulse} 6s ease infinite`,
             '&::before': {
               content: '""',
               position: 'absolute',
               top: 0,
               left: 0,
               right: 0,
-              height: 6,
-              background: 'linear-gradient(90deg, #6473ff, #8b4dff)',
+              height: 5,
+              background: 'linear-gradient(90deg, #1e90ff, #ffffff)',
             }
           }}>
             <Fade in={true} timeout={1000}>
@@ -106,10 +114,11 @@ const Register = () => {
                   textAlign="center" 
                   gutterBottom 
                   sx={{ 
-                    fontWeight: 700, 
-                    color: "#2d3748",
+                    fontWeight: 'bold', 
                     mb: 3,
-                    letterSpacing: '-0.5px',
+                    background: 'linear-gradient(90deg, #1e90ff, #000000)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
                   }}
                 >
                   Register
@@ -120,8 +129,8 @@ const Register = () => {
                     <Alert severity="error" sx={{ 
                       mb: 3, 
                       borderRadius: 2,
-                      bgcolor: '#fff5f5',
-                      border: '1px solid #fed7d7',
+                      bgcolor: 'rgba(255, 0, 0, 0.1)',
+                      border: '1px solid rgba(255, 0, 0, 0.2)',
                     }}>
                       {errorMessage}
                     </Alert>
@@ -140,14 +149,14 @@ const Register = () => {
                       '& .MuiOutlinedInput-root': {
                         borderRadius: 2,
                         '& fieldset': {
-                          borderColor: 'rgba(0, 0, 0, 0.08)',
+                          borderColor: 'rgba(0, 0, 0, 0.1)',
                         },
                         '&:hover fieldset': {
-                          borderColor: '#6473ff',
+                          borderColor: '#1e90ff',
                         },
                         '&.Mui-focused fieldset': {
-                          borderColor: '#6473ff',
-                          boxShadow: '0 0 0 3px rgba(100, 115, 255, 0.2)',
+                          borderColor: '#1e90ff',
+                          boxShadow: '0 0 0 2px rgba(30, 144, 255, 0.2)',
                         },
                       },
                     }}
@@ -164,14 +173,14 @@ const Register = () => {
                       '& .MuiOutlinedInput-root': {
                         borderRadius: 2,
                         '& fieldset': {
-                          borderColor: 'rgba(0, 0, 0, 0.08)',
+                          borderColor: 'rgba(0, 0, 0, 0.1)',
                         },
                         '&:hover fieldset': {
-                          borderColor: '#6473ff',
+                          borderColor: '#1e90ff',
                         },
                         '&.Mui-focused fieldset': {
-                          borderColor: '#6473ff',
-                          boxShadow: '0 0 0 3px rgba(100, 115, 255, 0.2)',
+                          borderColor: '#1e90ff',
+                          boxShadow: '0 0 0 2px rgba(30, 144, 255, 0.2)',
                         },
                       },
                     }}
@@ -189,14 +198,14 @@ const Register = () => {
                       '& .MuiOutlinedInput-root': {
                         borderRadius: 2,
                         '& fieldset': {
-                          borderColor: 'rgba(0, 0, 0, 0.08)',
+                          borderColor: 'rgba(0, 0, 0, 0.1)',
                         },
                         '&:hover fieldset': {
-                          borderColor: '#6473ff',
+                          borderColor: '#1e90ff',
                         },
                         '&.Mui-focused fieldset': {
-                          borderColor: '#6473ff',
-                          boxShadow: '0 0 0 3px rgba(100, 115, 255, 0.2)',
+                          borderColor: '#1e90ff',
+                          boxShadow: '0 0 0 2px rgba(30, 144, 255, 0.2)',
                         },
                       },
                     }}
@@ -208,49 +217,42 @@ const Register = () => {
                     fullWidth
                     disabled={isLoading}
                     sx={{
-                      background: 'linear-gradient(135deg, #6473ff 0%, #8b4dff 100%)',
+                      background: 'linear-gradient(135deg, #1e90ff 0%, #0066cc 100%)',
                       borderRadius: 2,
                       py: 1.5,
                       fontSize: '16px',
-                      fontWeight: 600,
+                      fontWeight: 'bold',
                       textTransform: 'none',
-                      boxShadow: '0 4px 6px rgba(100, 115, 255, 0.2)',
-                      transition: 'all 0.3s ease',
+                      boxShadow: '0 4px 6px rgba(30, 144, 255, 0.2)',
+                      transition: 'all 0.3s',
                       '&:hover': {
-                        transform: 'translateY(-1px)',
-                        boxShadow: '0 6px 12px rgba(100, 115, 255, 0.3)',
-                        background: 'linear-gradient(135deg, #5a69e6 0%, #7e44e6 100%)',
-                      },
-                      '&:active': {
-                        transform: 'translateY(0)',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 6px 12px rgba(30, 144, 255, 0.3)',
                       },
                       '&.Mui-disabled': {
-                        background: '#e2e8f0',
-                        color: '#a0aec0',
+                        background: '#e0e0e0',
                       }
                     }}
                   >
-                    {isLoading ? 'Creating Account...' : 'Register'}
+                    {isLoading ? 'Registering...' : 'Register'}
                   </Button>
                 </form>
                 
                 <Typography variant="body2" align="center" mt={3} sx={{ 
-                  color: '#718096',
-                  fontSize: '0.875rem',
+                  color: '#ffffff',
+                  textShadow: '0 1px 2px rgba(0,0,0,0.5)',
                 }}>
                   Already have an account?{' '}
                   <Button
                     component="button"
                     onClick={() => navigate('/login')}
                     sx={{ 
-                      color: '#6473ff', 
+                      color: '#ffffff',
                       textTransform: 'none',
-                      fontWeight: 600,
-                      fontSize: '0.875rem',
-                      p: 0,
-                      minWidth: 'auto',
+                      fontWeight: 'bold',
+                      textShadow: '0 1px 2px rgba(0,0,0,0.5)',
                       '&:hover': {
-                        textDecoration: 'underline',
+                        color: '#1e90ff',
                         background: 'none',
                       }
                     }}
