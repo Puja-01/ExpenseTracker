@@ -112,7 +112,7 @@ const Register = () => {
                     letterSpacing: '-0.5px',
                   }}
                 >
-                  Create Account
+                  Register
                 </Typography>
                 
                 {errorMessage && (
@@ -255,7 +255,7 @@ const Register = () => {
                       }
                     }}
                   >
-                    Sign in
+                    Login
                   </Button>
                 </Typography>
               </Box>
