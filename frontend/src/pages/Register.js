@@ -4,13 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Container, Typography, Box, Paper, Alert, Fade, Grow } from '@mui/material';
 import { keyframes } from '@emotion/react';
 
-// Animation keyframes
-const gradientFlow = keyframes`
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-`;
-
+// Animation keyframes (for floating elements only)
 const floatAnimation = keyframes`
   0% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
@@ -48,8 +42,6 @@ const Register = () => {
     <Box sx={{
       minHeight: "100vh",
       background: "linear-gradient(135deg, #ffffff 0%, #e6f2ff 25%, #1e90ff 50%, #000000 100%)",
-      backgroundSize: "400% 400%",
-      animation: `${gradientFlow} 15s ease infinite`,
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -64,28 +56,7 @@ const Register = () => {
         backdropFilter: 'blur(2px)',
       }
     }}>
-      {/* Floating animated elements */}
-      <Box sx={{
-        position: 'absolute',
-        width: 300,
-        height: 300,
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(30,144,255,0.15) 0%, rgba(255,255,255,0) 70%)',
-        top: '20%',
-        left: '10%',
-        animation: `${floatAnimation} 8s ease-in-out infinite`,
-      }} />
-      <Box sx={{
-        position: 'absolute',
-        width: 200,
-        height: 200,
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(0,0,0,0) 70%)',
-        bottom: '15%',
-        right: '10%',
-        animation: `${floatAnimation} 10s ease-in-out infinite 2s`,
-      }} />
-
+      
       <Container maxWidth="sm">
         <Grow in={true} timeout={800}>
           <Paper sx={{
@@ -238,28 +209,38 @@ const Register = () => {
                   </Button>
                 </form>
                 
-                <Typography variant="body2" align="center" mt={3} sx={{ 
-                  color: '#ffffff',
-                  textShadow: '0 1px 2px rgba(0,0,0,0.5)',
-                }}>
-                  Already have an account?{' '}
-                  <Button
-                    component="button"
-                    onClick={() => navigate('/login')}
-                    sx={{ 
-                      color: '#ffffff',
-                      textTransform: 'none',
-                      fontWeight: 'bold',
-                      textShadow: '0 1px 2px rgba(0,0,0,0.5)',
-                      '&:hover': {
-                        color: '#1e90ff',
-                        background: 'none',
-                      }
-                    }}
-                  >
-                    Login
-                  </Button>
-                </Typography>
+                <Typography 
+  variant="body2" 
+  align="center" 
+  mt={3}
+  sx={{ 
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#000000',
+    gap: '4px', // Reduced space between text and button
+  }}
+>
+  Already have an account?
+  <Button
+    component="button"
+    onClick={() => navigate('/login')}
+    sx={{ 
+      color: '#0066cc',
+      textTransform: 'none',
+      fontWeight: 'bold',
+      p: 0,
+      minWidth: 'auto',
+      '&:hover': {
+        color: '#1e90ff',
+        background: 'none',
+        textDecoration: 'underline',
+      }
+    }}
+  >
+    Login
+  </Button>
+</Typography>
               </Box>
             </Fade>
           </Paper>
