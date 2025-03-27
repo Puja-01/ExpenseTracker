@@ -4,16 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Container, Typography, Box, Paper, Alert, Fade, Grow } from '@mui/material';
 import { keyframes } from '@emotion/react';
 
-// Animation keyframes
-const subtlePulse = keyframes`
-  0% { opacity: 0.95; }
-  50% { opacity: 1; }
-  100% { opacity: 0.95; }
-`;
-
+// Animation keyframes (for floating elements only)
 const floatAnimation = keyframes`
   0% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-10px); }
   100% { transform: translateY(0px); }
 `;
 
@@ -44,58 +38,41 @@ const Login = () => {
   return (
     <Box sx={{
       minHeight: "100vh",
-      background: "linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%)",
+      background: "linear-gradient(135deg, #ffffff 0%, #e6f2ff 25%, #1e90ff 50%, #000000 100%)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       position: 'relative',
       overflow: 'hidden',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        background: 'rgba(0,0,0,0.2)',
+        backdropFilter: 'blur(2px)',
+      }
     }}>
-      {/* Decorative elements */}
-      <Box sx={{
-        position: 'absolute',
-        width: '60vw',
-        height: '60vw',
-        maxWidth: 600,
-        maxHeight: 600,
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(100,115,255,0.08) 0%, rgba(0,0,0,0) 70%)',
-        top: '-20%',
-        right: '-10%',
-        animation: `${floatAnimation} 8s ease-in-out infinite`,
-      }} />
-      <Box sx={{
-        position: 'absolute',
-        width: '40vw',
-        height: '40vw',
-        maxWidth: 400,
-        maxHeight: 400,
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(255,100,100,0.06) 0%, rgba(0,0,0,0) 70%)',
-        bottom: '-15%',
-        left: '-10%',
-        animation: `${floatAnimation} 10s ease-in-out infinite 2s`,
-      }} />
-
+      
       <Container maxWidth="sm">
         <Grow in={true} timeout={800}>
           <Paper sx={{
             p: 4,
-            bgcolor: "rgba(255, 255, 255, 0.96)",
+            bgcolor: "rgba(255, 255, 255, 0.92)",
             borderRadius: 3,
-            boxShadow: '0 10px 30px rgba(50, 50, 93, 0.1)',
-            border: '1px solid rgba(0, 0, 0, 0.02)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+            backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             position: 'relative',
             overflow: 'hidden',
-            animation: `${subtlePulse} 6s ease infinite`,
             '&::before': {
               content: '""',
               position: 'absolute',
               top: 0,
               left: 0,
               right: 0,
-              height: 6,
-              background: 'linear-gradient(90deg, #6473ff, #8b4dff)',
+              height: 5,
+              background: 'linear-gradient(90deg, #1e90ff, #ffffff)',
             }
           }}>
             <Fade in={true} timeout={1000}>
@@ -105,10 +82,11 @@ const Login = () => {
                   textAlign="center" 
                   gutterBottom 
                   sx={{ 
-                    fontWeight: 700, 
-                    color: "#2d3748",
+                    fontWeight: 'bold', 
                     mb: 3,
-                    letterSpacing: '-0.5px',
+                    background: 'linear-gradient(90deg, #1e90ff, #000000)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
                   }}
                 >
                   Login
@@ -119,8 +97,8 @@ const Login = () => {
                     <Alert severity="error" sx={{ 
                       mb: 3, 
                       borderRadius: 2,
-                      bgcolor: '#fff5f5',
-                      border: '1px solid #fed7d7',
+                      bgcolor: 'rgba(255, 0, 0, 0.1)',
+                      border: '1px solid rgba(255, 0, 0, 0.2)',
                     }}>
                       {errorMessage}
                     </Alert>
@@ -139,14 +117,14 @@ const Login = () => {
                       '& .MuiOutlinedInput-root': {
                         borderRadius: 2,
                         '& fieldset': {
-                          borderColor: 'rgba(0, 0, 0, 0.08)',
+                          borderColor: 'rgba(0, 0, 0, 0.1)',
                         },
                         '&:hover fieldset': {
-                          borderColor: '#6473ff',
+                          borderColor: '#1e90ff',
                         },
                         '&.Mui-focused fieldset': {
-                          borderColor: '#6473ff',
-                          boxShadow: '0 0 0 3px rgba(100, 115, 255, 0.2)',
+                          borderColor: '#1e90ff',
+                          boxShadow: '0 0 0 2px rgba(30, 144, 255, 0.2)',
                         },
                       },
                     }}
@@ -164,14 +142,14 @@ const Login = () => {
                       '& .MuiOutlinedInput-root': {
                         borderRadius: 2,
                         '& fieldset': {
-                          borderColor: 'rgba(0, 0, 0, 0.08)',
+                          borderColor: 'rgba(0, 0, 0, 0.1)',
                         },
                         '&:hover fieldset': {
-                          borderColor: '#6473ff',
+                          borderColor: '#1e90ff',
                         },
                         '&.Mui-focused fieldset': {
-                          borderColor: '#6473ff',
-                          boxShadow: '0 0 0 3px rgba(100, 115, 255, 0.2)',
+                          borderColor: '#1e90ff',
+                          boxShadow: '0 0 0 2px rgba(30, 144, 255, 0.2)',
                         },
                       },
                     }}
@@ -183,54 +161,57 @@ const Login = () => {
                     fullWidth
                     disabled={isLoading}
                     sx={{
-                      background: 'linear-gradient(135deg, #6473ff 0%, #8b4dff 100%)',
+                      background: 'linear-gradient(135deg, #1e90ff 0%, #0066cc 100%)',
                       borderRadius: 2,
                       py: 1.5,
                       fontSize: '16px',
-                      fontWeight: 600,
+                      fontWeight: 'bold',
                       textTransform: 'none',
-                      boxShadow: '0 4px 6px rgba(100, 115, 255, 0.2)',
-                      transition: 'all 0.3s ease',
+                      boxShadow: '0 4px 6px rgba(30, 144, 255, 0.2)',
+                      transition: 'all 0.3s',
                       '&:hover': {
-                        transform: 'translateY(-1px)',
-                        boxShadow: '0 6px 12px rgba(100, 115, 255, 0.3)',
-                        background: 'linear-gradient(135deg, #5a69e6 0%, #7e44e6 100%)',
-                      },
-                      '&:active': {
-                        transform: 'translateY(0)',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 6px 12px rgba(30, 144, 255, 0.3)',
                       },
                       '&.Mui-disabled': {
-                        background: '#e2e8f0',
-                        color: '#a0aec0',
+                        background: '#e0e0e0',
                       }
                     }}
                   >
-                    {isLoading ? 'Signing In...' : 'Login'}
+                    {isLoading ? 'Logging in...' : 'Login'}
                   </Button>
                 </form>
                 
-                <Typography variant="body2" align="center" mt={3} sx={{ 
-                  color: '#718096',
-                  fontSize: '0.875rem',
-                }}>
-                  Don't have an account?{' '}
+                <Typography 
+                  variant="body2" 
+                  align="center" 
+                  mt={3}
+                  sx={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#000000',
+                    gap: '4px',
+                  }}
+                >
+                  Don't have an account?
                   <Button
                     component="button"
                     onClick={() => navigate('/register')}
                     sx={{ 
-                      color: '#6473ff', 
+                      color: '#0066cc',
                       textTransform: 'none',
-                      fontWeight: 600,
-                      fontSize: '0.875rem',
+                      fontWeight: 'bold',
                       p: 0,
                       minWidth: 'auto',
                       '&:hover': {
-                        textDecoration: 'underline',
+                        color: '#1e90ff',
                         background: 'none',
+                        textDecoration: 'underline',
                       }
                     }}
                   >
-                    Register here
+                    Register
                   </Button>
                 </Typography>
               </Box>
