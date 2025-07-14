@@ -30,7 +30,7 @@ const Register = () => {
       navigate('/dashboard');
     } catch (err) {
       console.error(err);
-      setErrorMessage(err.response?.data?.message === 'User already exists' 
+      setErrorMessage(err.response?.data?.msg === 'User already exists' 
         ? 'User already exists' 
         : 'Registration failed. Please try again.');
     } finally {
